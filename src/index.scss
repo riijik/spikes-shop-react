@@ -1,0 +1,72 @@
+// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap'); Вариант импорта стилей текста с Google Fonts
+
+body {
+  margin: 0px;
+  font-family: system-ui;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color:cyan;
+}
+
+.wrapper {
+  background: #FFFFFF;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.09);
+  border-radius: 20px;
+  max-width: 1080px;
+  margin: 50px auto;
+}
+
+.spikeLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: blue;
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
+.shopLogo {
+  width: 22px;
+  height: 22px;
+}
+
+.userLogo {
+  width: 22px;
+  height: 22px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  border-bottom: 1px solid #eaeaea;
+
+  .headerLeft {
+    display: flex;
+    align-items: center;
+
+    h3, p {
+      margin: 0px;
+    }
+  }
+
+  .headerRight {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+
+    li {
+      list-style-type: none;
+      margin-right: 30px;
+    }
+  }
+}
+
+.content {
+  padding: 40px;
+
+  h1 {
+    margin: 0px;
+  }
+}
