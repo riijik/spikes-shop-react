@@ -19,20 +19,10 @@ body {
 .spikeLogo {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: blue;
   margin-right: 15px;
   margin-left: 5px;
-}
-
-.shopLogo {
-  width: 22px;
-  height: 22px;
-}
-
-.userLogo {
-  width: 22px;
-  height: 22px;
 }
 
 header {
@@ -56,6 +46,10 @@ header {
     padding: 0px;
     display: flex;
 
+    span {
+      margin-left: 5px;
+    }
+
     li {
       list-style-type: none;
       margin-right: 30px;
@@ -65,8 +59,61 @@ header {
 
 .content {
   padding: 40px;
-
+  
   h1 {
-    margin: 0px;
+    margin-bottom: 40px;
+  }
+}
+
+.allPositions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.position {
+  border: 1px solid #F3F3F3;
+  padding: 30px;
+  width: 180px;
+  height: 180px;
+  border-radius: 40px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  
+  span {
+    font-size: 13px;
+    opacity: 0.5; 
+  }
+
+  b {
+    font-size: 13px;
+  }
+
+  .imageCard {
+    margin-left: 21px;
+    border-radius: 8px;
+  }
+
+  h5 {
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .cardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      background: #ffffff;
+      border: 1px solid #f2f2f2;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 32px;
+      width: 32px;
+      cursor: pointer;
+    }
   }
 }
