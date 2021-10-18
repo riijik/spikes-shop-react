@@ -1,16 +1,16 @@
 import React from "react";
 import crossLogo from "./crossLogo.png";
 import nikeMaxfly from "./Nike_Air_Zoom_Maxfly_1.png";
-import style from "./ShopCart.module.scss"
+import style from "./ShopCart.module.scss";
 
-export function ShoppingCart() {
+export function ShoppingCart({ closeShopCart }: { closeShopCart: () => void }) {
   return (
-    <div style={{ display: "none" }} className={style.overlay}>
+    <div className={style.overlay}>
       <div className={style.drawer}>
         <div className={style.basketTop}>
           <h2>Basket</h2>
           <button>
-            <img src={crossLogo} width={15} height={15} />
+            <img src={crossLogo} width={15} height={15} onClick={closeShopCart} />
           </button>
         </div>
 

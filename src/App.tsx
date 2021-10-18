@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import searchLogo from "./img/searchLogo.png";
 import filterLogo from "./img/filterLogo.png";
 import { Position } from "./components/Position/Position";
@@ -7,10 +8,12 @@ import { ShoppingCart } from "./components/ShopCart/ShopCart";
 import { positions } from "./data";
 
 export function App() {
+  const [cartOpen, setCartOpen] = useState(false)
+
   return (
     <div className="wrapper">
-      <ShoppingCart />
-      <Header />
+      {cartOpen ? <ShoppingCart closeShopCart = {()=>setCartOpen(false)} /> : null}
+      <Header onClickShopCart = {()=>setCartOpen(true)}/>
       <div className="content">
         <div className="searchFilterLine">
           <h1>All positions</h1>

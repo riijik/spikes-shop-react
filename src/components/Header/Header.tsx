@@ -2,9 +2,9 @@ import React from "react";
 import spikeLogo from "./spikeLogo.png";
 import shopLogo from "./shopLogo.png";
 import userLogo from "./userLogo.png";
-import style from "./Header.module.scss"
+import style from "./Header.module.scss";
 
-export function Header() {
+export function Header({ onClickShopCart }: { onClickShopCart: () => void }) {
   return (
     <header>
       <div className={style.headerLeft}>
@@ -16,7 +16,7 @@ export function Header() {
       </div>
       <ul className={style.headerRight}>
         <li>
-          <img src={shopLogo} width={22} height={22} />
+          <img src={shopLogo} width={22} height={22} onClick={onClickShopCart}/>
           <span>0 $</span>
         </li>
         <li className={style.liUser}>
