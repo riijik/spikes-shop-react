@@ -1,0 +1,45 @@
+.spikeLogo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: blue;
+    margin-right: 15px;
+    margin-left: 5px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    border-bottom: 1px solid #eaeaea;
+  
+    .headerLeft {
+      display: flex;
+      align-items: center;
+  
+      h3,
+      p {
+        margin: 0px;
+      }
+    }
+  
+    .headerRight {
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+  
+      span {
+        margin-left: 5px;
+      }
+  
+      li {
+        list-style-type: none;
+        margin-right: 30px;
+      }
+  
+      .liUser {
+        margin-top: 1px;
+      }
+    }
+  }
