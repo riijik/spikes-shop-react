@@ -1,4 +1,4 @@
-import { Product } from "./interface";
+import { Product } from "./components/interface";
 
 
 

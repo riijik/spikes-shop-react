@@ -6,14 +6,25 @@ import { Position } from "./components/Position/Position";
 import { Header } from "./components/Header/Header";
 import { ShoppingCart } from "./components/ShopCart/ShopCart";
 import { positions } from "./data";
+import { Product } from "./components/interface";
 
 export function App() {
-  const [cartOpen, setCartOpen] = useState(false)
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cartPositions, setCartPositions] = useState<Product[]>([]);
+
+  const addPositionToCart = (obj: Product) => {
+    setCartPositions([...cartPositions, obj])
+  };
 
   return (
     <div className="wrapper">
-      {cartOpen ? <ShoppingCart closeShopCart = {()=>setCartOpen(false)} /> : null}
-      <Header onClickShopCart = {()=>setCartOpen(true)}/>
+      {cartOpen ? (
+        <ShoppingCart
+          closeShopCart={() => setCartOpen(false)}
+          positionList={cartPositions}
+        />
+      ) : null}
+      <Header onClickShopCart={() => setCartOpen(true)} />
       <div className="content">
         <div className="searchFilterLine">
           <h1>All positions</h1>
@@ -34,11 +45,21 @@ export function App() {
         </div>
         <div className="allPositions">
           {positions.map((item) => {
-            return <Position key={item.id} model={item.model} price={item.price} img={item.image}/>;
+            return (
+              <Position
+                key={item.id}
+                model={item.model}
+                price={item.price}
+                image={item.image}
+                size={item.size}
+                id={item.id}
+                brand={item.brand}
+                addToCart={(obj: Product) => addPositionToCart(obj)}
+              />
+            );
           })}
         </div>
       </div>
     </div>
   );
 }
-
