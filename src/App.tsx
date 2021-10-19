@@ -5,15 +5,28 @@ import filterLogo from "./img/filterLogo.png";
 import { Position } from "./components/Position/Position";
 import { Header } from "./components/Header/Header";
 import { ShoppingCart } from "./components/ShopCart/ShopCart";
-import { positions } from "./data";
+import { spikesList } from "./data";
 import { Product } from "./components/interface";
 
 export function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartPositions, setCartPositions] = useState<Product[]>([]);
 
-  const addPositionToCart = (obj: Product) => {
-    setCartPositions([...cartPositions, obj])
+  const addPositionToCart = (positionToCart: Product) => {
+    if (cartPositions.length !== 0) {
+      for (const item of cartPositions) {
+        if (item.id === positionToCart.id) {
+        } else {
+          setCartPositions((prev) => [...prev, positionToCart]);
+        }
+      }
+    } else {
+      setCartPositions((prev) => [...prev, positionToCart]);
+    }
+  };
+
+  const removePositionFromCart = (id: number) => {
+    setCartPositions((prev) => prev.filter((position) => position.id !== id));
   };
 
   return (
@@ -22,6 +35,7 @@ export function App() {
         <ShoppingCart
           closeShopCart={() => setCartOpen(false)}
           positionList={cartPositions}
+          deleteFromCart={removePositionFromCart}
         />
       ) : null}
       <Header onClickShopCart={() => setCartOpen(true)} />
@@ -44,7 +58,7 @@ export function App() {
           </div>
         </div>
         <div className="allPositions">
-          {positions.map((item) => {
+          {spikesList.map((item) => {
             return (
               <Position
                 key={item.id}
@@ -54,7 +68,9 @@ export function App() {
                 size={item.size}
                 id={item.id}
                 brand={item.brand}
-                addToCart={(obj: Product) => addPositionToCart(obj)}
+                addToCart={(positionToCart: Product) =>
+                  addPositionToCart(positionToCart)
+                }
               />
             );
           })}

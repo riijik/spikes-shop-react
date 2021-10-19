@@ -2,7 +2,7 @@ import { Product } from "./components/interface";
 
 
 
-export const positions: Product[] = [
+export const spikesList: Product[] = [
     {
         id: 1,
         brand: "Nike",

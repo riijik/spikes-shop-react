@@ -1,15 +1,16 @@
 import React from "react";
 import crossLogo from "./crossLogo.png";
-import nikeMaxfly from "./Nike_Air_Zoom_Maxfly_1.png";
 import style from "./ShopCart.module.scss";
 import { Product } from "../interface";
 
 export function ShoppingCart({
   closeShopCart,
   positionList = [],
+  deleteFromCart
 }: {
   closeShopCart: () => void;
   positionList: Product[];
+  deleteFromCart: (id: number) => void
 }) {
   return (
     <div className={style.overlay}>
@@ -32,7 +33,7 @@ export function ShoppingCart({
               <p>{position.model}</p>
               <b>{position.price} $</b>
             </div>
-            <button>
+            <button onClick={()=> deleteFromCart(position.id)}>
               <img src={crossLogo} width={15} height={15} />
             </button>
           </div>
