@@ -27,7 +27,7 @@ export function ShoppingCart({
           </button>
         </div>
         {positionList.map((position) => (
-          <div className={style.cartItem}>
+          <div className={style.cartItem} key={position.id}>
             <img src={position.image} height={70} width={70} />
             <div>
               <p>{position.model}</p>

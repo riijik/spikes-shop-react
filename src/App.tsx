@@ -7,15 +7,19 @@ import { Header } from "./components/Header/Header";
 import { ShoppingCart } from "./components/ShopCart/ShopCart";
 import { spikesList } from "./data";
 import { Product } from "./components/interface";
+import crossLogo from "./components/ShopCart/crossLogo.png";
 
 export function App() {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartPositions, setCartPositions] = useState<Product[]>([]);
+  const [searchInput, setSearchInput] = useState("");
 
+  // исправить логику добавления в корзину
   const addPositionToCart = (positionToCart: Product) => {
     if (cartPositions.length !== 0) {
       for (const item of cartPositions) {
         if (item.id === positionToCart.id) {
+          console.log("Этот товар уже добавлен в корзину");
         } else {
           setCartPositions((prev) => [...prev, positionToCart]);
         }
@@ -27,6 +31,10 @@ export function App() {
 
   const removePositionFromCart = (id: number) => {
     setCartPositions((prev) => prev.filter((position) => position.id !== id));
+  };
+
+  const takeValueFromInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
   };
 
   return (
@@ -41,11 +49,24 @@ export function App() {
       <Header onClickShopCart={() => setCartOpen(true)} />
       <div className="content">
         <div className="searchFilterLine">
-          <h1>All positions</h1>
+          <h1>
+            {searchInput
+              ? `Search by request: ${searchInput}`
+              : "All positions"}
+          </h1>
           <div className="searchAndFilter">
             <div className="search">
               <img src={searchLogo} width={11} height={11} />
-              <input placeholder="Search..." />
+              <input
+                placeholder="Search..."
+                onChange={takeValueFromInput}
+                value={searchInput}
+              />
+              {searchInput && (
+                <button onClick={() => setSearchInput("")}>
+                  <img src={crossLogo} width={11} height={11} />
+                </button>
+              )}
             </div>
             <div className="filter">
               <img src={filterLogo} width={12} height={12} />
@@ -58,22 +79,24 @@ export function App() {
           </div>
         </div>
         <div className="allPositions">
-          {spikesList.map((item) => {
-            return (
-              <Position
-                key={item.id}
-                model={item.model}
-                price={item.price}
-                image={item.image}
-                size={item.size}
-                id={item.id}
-                brand={item.brand}
-                addToCart={(positionToCart: Product) =>
-                  addPositionToCart(positionToCart)
-                }
-              />
-            );
-          })}
+          {spikesList
+            .filter((item) => item.model.toLowerCase().includes(searchInput.toLowerCase()))
+            .map((item) => {
+              return (
+                <Position
+                  key={item.id}
+                  model={item.model}
+                  price={item.price}
+                  image={item.image}
+                  size={item.size}
+                  id={item.id}
+                  brand={item.brand}
+                  addToCart={(positionToCart: Product) =>
+                    addPositionToCart(positionToCart)
+                  }
+                />
+              );
+            })}
         </div>
       </div>
     </div>
