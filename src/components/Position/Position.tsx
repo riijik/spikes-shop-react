@@ -1,9 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import plusSign from "./plus-sign.svg";
-import checkedSign from "./checked.png";
-import notLiked from "./favouriteLogo.png";
-import liked from "./favouriteLogoLiked.png";
 import style from "./Position.module.scss";
 import { Product } from "../interface";
 
@@ -32,8 +28,8 @@ export function Position({
 
   return (
     <div className={style.position}>
-      <img src={notLiked} width={11} height={11} />
-      <img src={image} width={133} height={133} className={style.imageCard} />
+      <img src="/image/Symbols/favouriteLogo.png" width={11} height={11} alt="like" />
+      <img src={image} width={133} height={133} className={style.imageCard} alt="position" />
       <h5>{model}</h5>
       <div className={style.cardBottom}>
         <div>
@@ -41,7 +37,7 @@ export function Position({
           <b>{price} $</b>
         </div>
         <button onClick={addProduct}>
-          <img src={isAdded ? checkedSign : plusSign} width={11} height={11} />
+          <img src={isAdded ? "/image/Symbols/checked.png" : "/image/Symbols/plus-sign.svg"} width={11} height={11} alt="plus" />
         </button>
       </div>
     </div>

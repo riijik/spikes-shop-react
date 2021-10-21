@@ -148,3 +148,8 @@
       opacity: 1;
     }
   }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+  }
