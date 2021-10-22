@@ -5,6 +5,7 @@
     background: blue;
     margin-right: 15px;
     margin-left: 5px;
+    cursor: pointer;
   }
   
   header {
@@ -44,6 +45,10 @@
   
       .liUser {
         margin-top: 1px;
+      }
+
+      .liFavourite {
+        margin-top: 2px;
       }
     }
   }

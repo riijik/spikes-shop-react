@@ -55,21 +55,34 @@ export function ShoppingCart({
                 <li>
                   <span>Totall:</span>
                   <div></div>
-                  <b>0 $</b>
+                  <b>{positionList.reduce(sumPrice, 0)} $</b>
                 </li>
                 <li>
                   <span>Taxes 5%</span>
                   <div></div>
-                  <b>0 $</b>
+                  <b>{positionList.reduce(sumPrice, 0) * 0.05} $</b>
                 </li>
               </ul>
               <button>Checkout</button>
             </div>
           </div>
         ) : (
-          <h2>Your's basket empty</h2>
+          <div className={style.emptyCart}>
+            <h2>Your basket is empty</h2>
+            <p>Please add some product</p>
+            <img
+              src="/image/Symbols/empty-basket.svg"
+              width={90}
+              height={90}
+              alt="empty"
+            />
+          </div>
         )}
       </div>
     </div>
   );
+}
+
+function sumPrice(accum: number, product: Product) {
+  return accum + product.price;
 }

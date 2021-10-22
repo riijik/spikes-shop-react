@@ -11,6 +11,8 @@ export function Position({
   id,
   brand,
   addToCart,
+  addToFavourite,
+  favourited = false,
 }: {
   model: string;
   price: number;
@@ -19,17 +21,42 @@ export function Position({
   id: number;
   brand: string;
   addToCart: (obj: Product) => void;
+  addToFavourite: (positionToFavourite: Product) => void;
+  favourited?: boolean;
 }) {
   const [isAdded, setIsAdded] = useState(false);
+  const [isFavour, setIsFavour] = useState(favourited);
   const addProduct = () => {
     addToCart({ id, brand, model, image, price, size });
     setIsAdded(!isAdded);
   };
 
+  const addToFavour = () => {
+    addToFavourite({ id, brand, model, image, price, size });
+    setIsFavour(!isFavour);
+  };
+
   return (
     <div className={style.position}>
-      <img src="/image/Symbols/favouriteLogo.png" width={11} height={11} alt="like" />
-      <img src={image} width={133} height={133} className={style.imageCard} alt="position" />
+      <img
+        className={style.imgFavourite}
+        src={
+          isFavour
+            ? "/image/Symbols/favouriteLogoLiked.png"
+            : "/image/Symbols/favouriteLogo.png"
+        }
+        width={15}
+        height={15}
+        alt="like"
+        onClick={addToFavour}
+      />
+      <img
+        src={image}
+        width={133}
+        height={133}
+        className={style.imageCard}
+        alt="position"
+      />
       <h5>{model}</h5>
       <div className={style.cardBottom}>
         <div>
@@ -37,7 +64,16 @@ export function Position({
           <b>{price} $</b>
         </div>
         <button onClick={addProduct}>
-          <img src={isAdded ? "/image/Symbols/checked.png" : "/image/Symbols/plus-sign.svg"} width={11} height={11} alt="plus" />
+          <img
+            src={
+              isAdded
+                ? "/image/Symbols/checked.png"
+                : "/image/Symbols/plus-sign.svg"
+            }
+            width={11}
+            height={11}
+            alt="plus"
+          />
         </button>
       </div>
     </div>
