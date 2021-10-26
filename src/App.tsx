@@ -7,7 +7,6 @@ import { HomePage } from "./pages/HomePage";
 import { Route } from "react-router";
 import { FavouritePage } from "./pages/FavouritePage";
 import superagent from "superagent";
-import axios from "axios";
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
@@ -17,24 +16,47 @@ export function App() {
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
-    getRequestAllPositions().then((response) => {
-      setSpikesData(response);
-    });
-    getRequestCartPositions().then((response) => {
-      setCartPositions(response);
-    });
-    getRequestFavouritePositions().then((response) => {
-      setFavouritePositions(response);
-    });
+    async function data() {
+      const favourResponse = await getRequestFavouritePositions();
+      const cartRespone = await getRequestCartPositions();
+      const itemsResponse = await getRequestAllPositions();
+      setFavouritePositions(favourResponse);
+      setCartPositions(cartRespone);
+      setSpikesData(itemsResponse);
+    }
+    data()
+    // getRequestAllPositions().then((response) => {
+    //   setSpikesData(response);
+    // });
+    // getRequestCartPositions().then((response) => {
+    //   setCartPositions(response);
+    // });
+    // getRequestFavouritePositions().then((response) => {
+    //   setFavouritePositions(response);
+    // });
   }, []);
 
   // исправить логику добавления в корзину
-  const addPositionToCart = (positionToCart: Product) => {
-    superagent
-      .post("https://61712ad2c20f3a001705fb20.mockapi.io/cart")
-      .send(positionToCart)
-      .end();
-    setCartPositions((prev) => [...prev, positionToCart]);
+  const addPositionToCart = async (positionToCart: Product) => {
+    if (
+      cartPositions.find((obj) => Number(obj.id) === Number(positionToCart.id))
+    ) {
+      superagent
+        .delete(
+          `https://61712ad2c20f3a001705fb20.mockapi.io/cart/${positionToCart.id}`
+        )
+        .end();
+      setCartPositions((prev) =>
+        prev.filter((position) => position.id !== positionToCart.id)
+      );
+    } else {
+      const post = await superagent
+        .post("https://61712ad2c20f3a001705fb20.mockapi.io/cart")
+        .send(positionToCart);
+      const postBody: Product = post.body;
+      console.log(post)
+      setCartPositions((prev) => [...prev, postBody]);
+    }
   };
 
   const removePositionFromCart = (id: number) => {
@@ -46,19 +68,20 @@ export function App() {
 
   const addPositionToFavourite = async (positionToFavourite: Product) => {
     if (favouritePositions.find((obj) => obj.id === positionToFavourite.id)) {
-      console.log("chlin");
       superagent
         .delete(
           `https://61712ad2c20f3a001705fb20.mockapi.io/favourite/${positionToFavourite.id}`
         )
         .end();
-    } else {
-      axios.post(
-        "https://61712ad2c20f3a001705fb20.mockapi.io/favourite",
-        positionToFavourite
+      setFavouritePositions((prev) =>
+        prev.filter((position) => position.id !== positionToFavourite.id)
       );
-
-      setFavouritePositions((prev) => [...prev, positionToFavourite]);
+    } else {
+      const post = await superagent
+        .post("https://61712ad2c20f3a001705fb20.mockapi.io/favourite")
+        .send(positionToFavourite);
+      const postBody: Product = post.body;
+      setFavouritePositions((prev) => [...prev, postBody]);
     }
   };
 
@@ -84,6 +107,7 @@ export function App() {
           spikesData={spikesData}
           addPositionToCart={addPositionToCart}
           addPositionToFavourite={addPositionToFavourite}
+          favouritePositions={favouritePositions}
         />
       </Route>
       <Route path="/favourites">

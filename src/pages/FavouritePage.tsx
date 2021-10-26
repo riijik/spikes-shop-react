@@ -13,7 +13,9 @@ export function FavouritePage({
   addPositionToFavourite: (positionToFavourite: Product) => void;
 }) {
   return (
+
     <div className={style.allPositions}>
+      <h1>Favorites </h1>
       {favouritePositions.map((item) => {
         return (
           <Position

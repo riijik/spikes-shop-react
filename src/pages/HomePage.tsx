@@ -11,6 +11,7 @@ export function HomePage({
   spikesData,
   addPositionToCart,
   addPositionToFavourite,
+  favouritePositions,
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,6 +19,7 @@ export function HomePage({
   spikesData: Product[];
   addPositionToCart: (positionToCart: Product) => void;
   addPositionToFavourite: (positionToFavourite: Product) => void;
+  favouritePositions: Product[];
 }) {
   return (
     <div className={style.content}>
@@ -32,23 +34,67 @@ export function HomePage({
             item.model.toLowerCase().includes(searchInput.toLowerCase())
           )
           .map((item) => {
-            return (
-              <Position
-                key={item.id}
-                model={item.model}
-                price={item.price}
-                image={item.image}
-                size={item.size}
-                id={item.id}
-                brand={item.brand}
-                addToCart={(positionToCart: Product) =>
-                  addPositionToCart(positionToCart)
+            if (favouritePositions.length !== 0) {
+              for (const a of favouritePositions) {
+                if (a.model === item.model) {
+                  return (
+                    <Position
+                      key={item.id}
+                      model={item.model}
+                      price={item.price}
+                      image={item.image}
+                      size={item.size}
+                      id={item.id}
+                      brand={item.brand}
+                      addToCart={(positionToCart: Product) =>
+                        addPositionToCart(positionToCart)
+                      }
+                      addToFavourite={(positionToFavourite: Product) =>
+                        addPositionToFavourite(positionToFavourite)
+                      }
+                      favourited={true}
+                    />
+                  );
+                } else {
+                  return (
+                    <Position
+                      key={item.id}
+                      model={item.model}
+                      price={item.price}
+                      image={item.image}
+                      size={item.size}
+                      id={item.id}
+                      brand={item.brand}
+                      addToCart={(positionToCart: Product) =>
+                        addPositionToCart(positionToCart)
+                      }
+                      addToFavourite={(positionToFavourite: Product) =>
+                        addPositionToFavourite(positionToFavourite)
+                      }
+                    />
+                  );
                 }
-                addToFavourite={(positionToFavourite: Product) =>
-                  addPositionToFavourite(positionToFavourite)
-                }
-              />
-            );
+              }
+            }
+            else {
+              return (
+                <Position
+                  key={item.id}
+                  model={item.model}
+                  price={item.price}
+                  image={item.image}
+                  size={item.size}
+                  id={item.id}
+                  brand={item.brand}
+                  addToCart={(positionToCart: Product) =>
+                    addPositionToCart(positionToCart)
+                  }
+                  addToFavourite={(positionToFavourite: Product) =>
+                    addPositionToFavourite(positionToFavourite)
+                  }
+                />
+              );
+            }
           })}
       </div>
     </div>
