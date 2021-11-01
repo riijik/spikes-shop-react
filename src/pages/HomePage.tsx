@@ -12,6 +12,7 @@ export function HomePage({
   addPositionToCart,
   addPositionToFavourite,
   favouritePositions,
+  cartPositions
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,7 @@ export function HomePage({
   addPositionToCart: (positionToCart: Product) => void;
   addPositionToFavourite: (positionToFavourite: Product) => void;
   favouritePositions: Product[];
+  cartPositions: Product []
 }) {
   return (
     <div className={style.content}>
@@ -34,67 +36,25 @@ export function HomePage({
             item.model.toLowerCase().includes(searchInput.toLowerCase())
           )
           .map((item) => {
-            if (favouritePositions.length !== 0) {
-              for (const a of favouritePositions) {
-                if (a.model === item.model) {
-                  return (
-                    <Position
-                      key={item.id}
-                      model={item.model}
-                      price={item.price}
-                      image={item.image}
-                      size={item.size}
-                      id={item.id}
-                      brand={item.brand}
-                      addToCart={(positionToCart: Product) =>
-                        addPositionToCart(positionToCart)
-                      }
-                      addToFavourite={(positionToFavourite: Product) =>
-                        addPositionToFavourite(positionToFavourite)
-                      }
-                      favourited={true}
-                    />
-                  );
-                } else {
-                  return (
-                    <Position
-                      key={item.id}
-                      model={item.model}
-                      price={item.price}
-                      image={item.image}
-                      size={item.size}
-                      id={item.id}
-                      brand={item.brand}
-                      addToCart={(positionToCart: Product) =>
-                        addPositionToCart(positionToCart)
-                      }
-                      addToFavourite={(positionToFavourite: Product) =>
-                        addPositionToFavourite(positionToFavourite)
-                      }
-                    />
-                  );
+            return (
+              <Position
+                key={item.id}
+                model={item.model}
+                price={item.price}
+                image={item.image}
+                size={item.size}
+                id={item.id}
+                brand={item.brand}
+                addToCart={(positionToCart: Product) =>
+                  addPositionToCart(positionToCart)
                 }
-              }
-            }
-            else {
-              return (
-                <Position
-                  key={item.id}
-                  model={item.model}
-                  price={item.price}
-                  image={item.image}
-                  size={item.size}
-                  id={item.id}
-                  brand={item.brand}
-                  addToCart={(positionToCart: Product) =>
-                    addPositionToCart(positionToCart)
-                  }
-                  addToFavourite={(positionToFavourite: Product) =>
-                    addPositionToFavourite(positionToFavourite)
-                  }
-                />
-              );
-            }
+                addToFavourite={(positionToFavourite: Product) =>
+                  addPositionToFavourite(positionToFavourite)
+                }
+                favourited={favouritePositions.some(obj => obj.model === item.model)}
+                addedToCart={cartPositions.some(obj => obj.model === item.model)}
+              />
+            );
           })}
       </div>
     </div>

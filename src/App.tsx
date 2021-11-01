@@ -24,7 +24,7 @@ export function App() {
       setCartPositions(cartRespone);
       setSpikesData(itemsResponse);
     }
-    data()
+    data();
     // getRequestAllPositions().then((response) => {
     //   setSpikesData(response);
     // });
@@ -41,6 +41,8 @@ export function App() {
     if (
       cartPositions.find((obj) => Number(obj.id) === Number(positionToCart.id))
     ) {
+      console.log(positionToCart);
+      console.log('sso')
       superagent
         .delete(
           `https://61712ad2c20f3a001705fb20.mockapi.io/cart/${positionToCart.id}`
@@ -54,8 +56,9 @@ export function App() {
         .post("https://61712ad2c20f3a001705fb20.mockapi.io/cart")
         .send(positionToCart);
       const postBody: Product = post.body;
-      console.log(post)
-      setCartPositions((prev) => [...prev, postBody]);
+      setCartPositions((prev) => [...prev, postBody]); 
+      console.log(postBody);
+      console.log(cartPositions)
     }
   };
 
@@ -82,6 +85,17 @@ export function App() {
         .send(positionToFavourite);
       const postBody: Product = post.body;
       setFavouritePositions((prev) => [...prev, postBody]);
+      console.log(favouritePositions)
+      let newSpikesData = [];
+      for (let item of spikesData) {
+        if (item.model === postBody.model) {
+          newSpikesData.push(postBody);
+        } else {
+          newSpikesData.push(item);
+        }
+      }
+      setSpikesData(newSpikesData);
+      console.log(newSpikesData);
     }
   };
 
@@ -108,6 +122,7 @@ export function App() {
           addPositionToCart={addPositionToCart}
           addPositionToFavourite={addPositionToFavourite}
           favouritePositions={favouritePositions}
+          cartPositions={cartPositions}
         />
       </Route>
       <Route path="/favourites">

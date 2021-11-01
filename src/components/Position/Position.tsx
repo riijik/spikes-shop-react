@@ -13,6 +13,7 @@ export function Position({
   addToCart,
   addToFavourite,
   favourited = false,
+  addedToCart = false,
 }: {
   model: string;
   price: number;
@@ -23,8 +24,9 @@ export function Position({
   addToCart: (obj: Product) => void;
   addToFavourite: (positionToFavourite: Product) => void;
   favourited?: boolean;
+  addedToCart?: boolean;
 }) {
-  const [isAdded, setIsAdded] = useState(false);
+  const [isAdded, setIsAdded] = useState(addedToCart);
   const [isFavour, setIsFavour] = useState(favourited);
   const addProduct = () => {
     addToCart({ id, brand, model, image, price, size });
