@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header/Header";
 import { ShoppingCart } from "./components/ShopCart/ShopCart";
@@ -7,6 +7,8 @@ import { HomePage } from "./pages/HomePage";
 import { Route } from "react-router";
 import { FavouritePage } from "./pages/FavouritePage";
 import superagent from "superagent";
+
+const MyContext = createContext({})
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
@@ -25,40 +27,25 @@ export function App() {
       setSpikesData(itemsResponse);
     }
     data();
-    // getRequestAllPositions().then((response) => {
-    //   setSpikesData(response);
-    // });
-    // getRequestCartPositions().then((response) => {
-    //   setCartPositions(response);
-    // });
-    // getRequestFavouritePositions().then((response) => {
-    //   setFavouritePositions(response);
-    // });
   }, []);
 
-  // исправить логику добавления в корзину
   const addPositionToCart = async (positionToCart: Product) => {
-    if (
-      cartPositions.find((obj) => Number(obj.id) === Number(positionToCart.id))
-    ) {
-      console.log(positionToCart);
-      console.log('sso')
+    if (cartPositions.find((obj) => obj.model === positionToCart.model)) {
+      const similiarPosition = findSimiliarPosition(cartPositions, positionToCart);
       superagent
         .delete(
-          `https://61712ad2c20f3a001705fb20.mockapi.io/cart/${positionToCart.id}`
+          `https://61712ad2c20f3a001705fb20.mockapi.io/cart/${similiarPosition.id}`
         )
         .end();
       setCartPositions((prev) =>
-        prev.filter((position) => position.id !== positionToCart.id)
+        prev.filter((position) => position.model !== positionToCart.model)
       );
     } else {
       const post = await superagent
         .post("https://61712ad2c20f3a001705fb20.mockapi.io/cart")
         .send(positionToCart);
       const postBody: Product = post.body;
-      setCartPositions((prev) => [...prev, postBody]); 
-      console.log(postBody);
-      console.log(cartPositions)
+      setCartPositions((prev) => [...prev, postBody]);
     }
   };
 
@@ -70,14 +57,15 @@ export function App() {
   };
 
   const addPositionToFavourite = async (positionToFavourite: Product) => {
-    if (favouritePositions.find((obj) => obj.id === positionToFavourite.id)) {
+    if (favouritePositions.find((obj) => obj.model === positionToFavourite.model)) {
+      const similiarPosition = findSimiliarPosition(favouritePositions, positionToFavourite)
       superagent
         .delete(
-          `https://61712ad2c20f3a001705fb20.mockapi.io/favourite/${positionToFavourite.id}`
+          `https://61712ad2c20f3a001705fb20.mockapi.io/favourite/${similiarPosition.id}`
         )
         .end();
       setFavouritePositions((prev) =>
-        prev.filter((position) => position.id !== positionToFavourite.id)
+        prev.filter((position) => position.model !== positionToFavourite.model)
       );
     } else {
       const post = await superagent
@@ -85,17 +73,6 @@ export function App() {
         .send(positionToFavourite);
       const postBody: Product = post.body;
       setFavouritePositions((prev) => [...prev, postBody]);
-      console.log(favouritePositions)
-      let newSpikesData = [];
-      for (let item of spikesData) {
-        if (item.model === postBody.model) {
-          newSpikesData.push(postBody);
-        } else {
-          newSpikesData.push(item);
-        }
-      }
-      setSpikesData(newSpikesData);
-      console.log(newSpikesData);
     }
   };
 
@@ -161,4 +138,14 @@ async function getRequestFavouritePositions() {
 
   const responseBody: Product[] = response.body;
   return responseBody;
+}
+
+function findSimiliarPosition(list: Product[], item: Product): Product {
+  let arr: Product[] = [];
+  for (const a of list) {
+    if (a.model === item.model) {
+      arr.push(a);
+    }
+  }
+  return arr[0];
 }

@@ -15,7 +15,7 @@ export function Header({ onClickShopCart }: { onClickShopCart: () => void }) {
         </Link>
         <div className="headerInfo">
           <h3>Speedrunner</h3>
-          <p>Best spikes for running</p>
+          <p>Spikes for running</p>
         </div>
       </div>
 
