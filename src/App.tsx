@@ -8,7 +8,7 @@ import { Route } from "react-router";
 import { FavouritePage } from "./pages/FavouritePage";
 import superagent from "superagent";
 
-const MyContext = createContext({})
+export const MyContext = createContext<[Product[],Product[],Product[]]>([[],[],[]]);
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
@@ -31,7 +31,10 @@ export function App() {
 
   const addPositionToCart = async (positionToCart: Product) => {
     if (cartPositions.find((obj) => obj.model === positionToCart.model)) {
-      const similiarPosition = findSimiliarPosition(cartPositions, positionToCart);
+      const similiarPosition = findSimiliarPosition(
+        cartPositions,
+        positionToCart
+      );
       superagent
         .delete(
           `https://61712ad2c20f3a001705fb20.mockapi.io/cart/${similiarPosition.id}`
@@ -57,8 +60,13 @@ export function App() {
   };
 
   const addPositionToFavourite = async (positionToFavourite: Product) => {
-    if (favouritePositions.find((obj) => obj.model === positionToFavourite.model)) {
-      const similiarPosition = findSimiliarPosition(favouritePositions, positionToFavourite)
+    if (
+      favouritePositions.find((obj) => obj.model === positionToFavourite.model)
+    ) {
+      const similiarPosition = findSimiliarPosition(
+        favouritePositions,
+        positionToFavourite
+      );
       superagent
         .delete(
           `https://61712ad2c20f3a001705fb20.mockapi.io/favourite/${similiarPosition.id}`
@@ -81,35 +89,37 @@ export function App() {
   };
 
   return (
-    <div className="wrapper">
-      {cartOpen ? (
-        <ShoppingCart
-          closeShopCart={() => setCartOpen(false)}
-          positionList={cartPositions}
-          deleteFromCart={removePositionFromCart}
-        />
-      ) : null}
-      <Header onClickShopCart={() => setCartOpen(true)} />
-      <Route path="/" exact>
-        <HomePage
-          searchInput={searchInput}
-          takeValueFromInput={takeValueFromInput}
-          setSearchInput={setSearchInput}
-          spikesData={spikesData}
-          addPositionToCart={addPositionToCart}
-          addPositionToFavourite={addPositionToFavourite}
-          favouritePositions={favouritePositions}
-          cartPositions={cartPositions}
-        />
-      </Route>
-      <Route path="/favourites">
-        <FavouritePage
-          favouritePositions={favouritePositions}
-          addPositionToCart={addPositionToCart}
-          addPositionToFavourite={addPositionToFavourite}
-        />
-      </Route>
-    </div>
+    <MyContext.Provider value={[favouritePositions,spikesData,cartPositions]}> 
+      <div className="wrapper">
+        {cartOpen ? (
+          <ShoppingCart
+            closeShopCart={() => setCartOpen(false)}
+            positionList={cartPositions}
+            deleteFromCart={removePositionFromCart}
+          />
+        ) : null}
+        <Header onClickShopCart={() => setCartOpen(true)} />
+        <Route path="/" exact>
+          <HomePage
+            searchInput={searchInput}
+            takeValueFromInput={takeValueFromInput}
+            setSearchInput={setSearchInput}
+            spikesData={spikesData}
+            addPositionToCart={addPositionToCart}
+            addPositionToFavourite={addPositionToFavourite}
+            favouritePositions={favouritePositions}
+            cartPositions={cartPositions}
+          />
+        </Route>
+        <Route path="/favourites">
+          <FavouritePage
+            // favouritePositions={favouritePositions}
+            addPositionToCart={addPositionToCart}
+            addPositionToFavourite={addPositionToFavourite}
+          />
+        </Route>
+      </div>
+    </MyContext.Provider>
   );
 }
 
@@ -142,9 +152,9 @@ async function getRequestFavouritePositions() {
 
 function findSimiliarPosition(list: Product[], item: Product): Product {
   let arr: Product[] = [];
-  for (const a of list) {
-    if (a.model === item.model) {
-      arr.push(a);
+  for (const position of list) {
+    if (position.model === item.model) {
+      arr.push(position);
     }
   }
   return arr[0];
