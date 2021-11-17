@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import style from "./Position.module.scss";
 import { Product } from "../interface";
+import { Link } from "react-router-dom";
+import { positionRoute } from "../../App";
 
 export function Position({
   model,
@@ -52,13 +54,13 @@ export function Position({
         alt="like"
         onClick={addToFavour}
       />
-      <img
+      <Link to={positionRoute(model)}><img
         src={image}
         width={133}
         height={133}
         className={style.imageCard}
         alt="position"
-      />
+      /></Link>
       <h5>{model}</h5>
       <div className={style.cardBottom}>
         <div>

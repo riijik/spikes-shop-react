@@ -1,28 +1,26 @@
-import react from "react";
+import react, {useContext} from "react";
 import { Search } from "../components/Search/Search";
 import { Position } from "../components/Position/Position";
 import { Product } from "../components/interface";
 import style from "./Home.module.scss";
+import { MyContext } from "../App";
+
 
 export function HomePage({
   searchInput,
   takeValueFromInput,
   setSearchInput,
-  spikesData,
   addPositionToCart,
   addPositionToFavourite,
-  favouritePositions,
-  cartPositions
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
-  spikesData: Product[];
   addPositionToCart: (positionToCart: Product) => void;
   addPositionToFavourite: (positionToFavourite: Product) => void;
-  favouritePositions: Product[];
-  cartPositions: Product []
 }) {
+  const [favouritePositions, spikesData, cartPositions] = useContext(MyContext);
+
   return (
     <div className={style.content}>
       <Search

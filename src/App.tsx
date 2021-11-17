@@ -6,9 +6,11 @@ import { Product } from "./components/interface";
 import { HomePage } from "./pages/HomePage";
 import { Route } from "react-router";
 import { FavouritePage } from "./pages/FavouritePage";
+import { PositionPage } from "./pages/PositionPage";
 import superagent from "superagent";
 
 export const MyContext = createContext<[Product[],Product[],Product[]]>([[],[],[]]);
+export const positionRoute = (model: string) => `/model/${model}`
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
@@ -104,19 +106,18 @@ export function App() {
             searchInput={searchInput}
             takeValueFromInput={takeValueFromInput}
             setSearchInput={setSearchInput}
-            spikesData={spikesData}
             addPositionToCart={addPositionToCart}
             addPositionToFavourite={addPositionToFavourite}
-            favouritePositions={favouritePositions}
-            cartPositions={cartPositions}
           />
         </Route>
         <Route path="/favourites">
           <FavouritePage
-            // favouritePositions={favouritePositions}
             addPositionToCart={addPositionToCart}
             addPositionToFavourite={addPositionToFavourite}
           />
+        </Route>
+        <Route path={positionRoute(':model')}>
+          <PositionPage/>
         </Route>
       </div>
     </MyContext.Provider>
