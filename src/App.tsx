@@ -10,7 +10,8 @@ import { PositionPage } from "./pages/PositionPage";
 import superagent from "superagent";
 
 export const MyContext = createContext<[Product[],Product[],Product[]]>([[],[],[]]);
-export const positionRoute = (model: string) => `/model/${model}`
+
+export const positionRoute = (model: string) => `/${model}`
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
