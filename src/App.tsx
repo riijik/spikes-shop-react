@@ -9,7 +9,9 @@ import { FavouritePage } from "./pages/FavouritePage";
 import { PositionPage } from "./pages/PositionPage";
 import superagent from "superagent";
 
-export const MyContext = createContext<[Product[],Product[],Product[]]>([[],[],[]]);
+const PRODUCT_EMPTY_LIST: Product[] = [];
+const PRODUCT_CONTEXT_INIT = [PRODUCT_EMPTY_LIST, PRODUCT_EMPTY_LIST, PRODUCT_EMPTY_LIST] as const;
+export const MyContext = createContext(PRODUCT_CONTEXT_INIT);
 
 export const positionRoute = (model: string) => `/${model}`
 
@@ -99,6 +101,7 @@ export function App() {
             closeShopCart={() => setCartOpen(false)}
             positionList={cartPositions}
             deleteFromCart={removePositionFromCart}
+            setCartPositions = {setCartPositions}
           />
         ) : null}
         <Header onClickShopCart={() => setCartOpen(true)} />

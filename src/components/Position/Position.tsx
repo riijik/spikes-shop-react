@@ -9,6 +9,7 @@ export function Position({
   model,
   price,
   image,
+  image_1,
   size,
   id,
   brand,
@@ -20,6 +21,7 @@ export function Position({
   model: string;
   price: number;
   image: string;
+  image_1: string;
   size: number[];
   id: number;
   brand: string;
@@ -31,12 +33,12 @@ export function Position({
   const [isAdded, setIsAdded] = useState(addedToCart);
   const [isFavour, setIsFavour] = useState(favourited);
   const addProduct = () => {
-    addToCart({ id, brand, model, image, price, size });
+    addToCart({ id, brand, model, image, image_1, price, size });
     setIsAdded(!isAdded);
   };
 
   const addToFavour = () => {
-    addToFavourite({ id, brand, model, image, price, size });
+    addToFavourite({ id, brand, model, image, image_1, price, size });
     setIsFavour(!isFavour);
   };
 
@@ -54,13 +56,15 @@ export function Position({
         alt="like"
         onClick={addToFavour}
       />
-      <Link to={positionRoute(model)}><img
-        src={image}
-        width={133}
-        height={133}
-        className={style.imageCard}
-        alt="position"
-      /></Link>
+      <Link to={positionRoute(model)}>
+        <img
+          src={image}
+          width={133}
+          height={133}
+          className={style.imageCard}
+          alt="position"
+        />
+      </Link>
       <h5>{model}</h5>
       <div className={style.cardBottom}>
         <div>

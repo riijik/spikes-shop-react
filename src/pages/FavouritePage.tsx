@@ -24,6 +24,7 @@ export function FavouritePage({
               model={item.model}
               price={item.price}
               image={item.image}
+              image_1={item.image_1}
               size={item.size}
               id={item.id}
               brand={item.brand}
