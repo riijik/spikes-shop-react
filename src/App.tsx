@@ -121,7 +121,7 @@ export function App() {
           />
         </Route>
         <Route path={positionRoute(':model')}>
-          <PositionPage/>
+          <PositionPage addPositionToCart={addPositionToCart} />
         </Route>
       </div>
     </MyContext.Provider>
