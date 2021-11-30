@@ -6,6 +6,7 @@ import { Product } from "../components/interface";
 import { SizeChoice } from "../components/SizeChoice/SizeChoice";
 import { PositionContent } from "../components/PositionContent/PositionContent";
 
+
 export function PositionPage({
   addPositionToCart,
 }: {
