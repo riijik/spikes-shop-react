@@ -1,8 +1,16 @@
 import React from "react";
 import style from "./Header.module.scss";
 import { Link } from "react-router-dom";
+import { Product } from "../interface";
+import { sumPrice } from "../ShopCart/ShopCart";
 
-export function Header({ onClickShopCart }: { onClickShopCart: () => void }) {
+export function Header({
+  onClickShopCart,
+  cartPositions,
+}: {
+  onClickShopCart: () => void;
+  cartPositions: Product[];
+}) {
   return (
     <header>
       <div className={style.headerLeft}>
@@ -28,7 +36,7 @@ export function Header({ onClickShopCart }: { onClickShopCart: () => void }) {
             onClick={onClickShopCart}
             alt="shop"
           />
-          <span>0 $</span>
+          <span>{cartPositions.reduce(sumPrice,0)} $</span>
         </li>
         <li className={style.liUser}>
           <img
@@ -52,3 +60,4 @@ export function Header({ onClickShopCart }: { onClickShopCart: () => void }) {
     </header>
   );
 }
+

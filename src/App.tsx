@@ -104,7 +104,7 @@ export function App() {
             setCartPositions = {setCartPositions}
           />
         ) : null}
-        <Header onClickShopCart={() => setCartOpen(true)} />
+        <Header onClickShopCart={() => setCartOpen(true)} cartPositions={cartPositions} />
         <Route path="/" exact>
           <HomePage
             searchInput={searchInput}

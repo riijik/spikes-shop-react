@@ -19,7 +19,7 @@ export function ShoppingCart({
     <div className={style.overlay}>
       <div className={style.drawer}>
         {order ? (
-          <Order setOrder={setOrder} />
+          <Order closeShopCart={closeShopCart} />
         ) : (
           <CartContent
             setOrder={setOrder}
@@ -34,15 +34,11 @@ export function ShoppingCart({
   );
 }
 
-function Order({
-  setOrder,
-}: {
-  setOrder: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function Order({ closeShopCart }: { closeShopCart: () => void }) {
   return (
     <div className={style.checkout}>
       <h2>Your order in processing</h2>
-      <button onClick={() => setOrder(false)}>Back to cart</button>
+      <button onClick={closeShopCart}>Close cart</button>
     </div>
   );
 }
@@ -134,6 +130,6 @@ function CartContent({
   );
 }
 
-function sumPrice(accum: number, product: Product) {
+export function sumPrice(accum: number, product: Product) {
   return accum + product.price;
 }

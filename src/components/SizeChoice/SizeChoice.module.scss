@@ -1,0 +1,24 @@
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(211, 12, 12, 0.05);
+  z-index: 1;
+}
+
+.drawer {
+  position: absolute;
+  height: 100px;
+  width: 380px;
+  top: 359px;
+  right: 80px;
+  background: #ffffff;
+  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.01);
+  align-items: center;
+  border-radius: 8px;
+  overflow: auto;
+}
