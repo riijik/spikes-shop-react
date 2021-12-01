@@ -5,10 +5,14 @@ export function Search({
   searchInput,
   takeValueFromInput,
   setSearchInput,
+  changeSortMethod,
+  sortMethod,
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+  changeSortMethod: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  sortMethod: string;
 }) {
   return (
     <div className={style.searchFilterLine}>
@@ -46,7 +50,8 @@ export function Search({
             height={12}
             alt="filter"
           />
-          <select>
+          <select onChange={changeSortMethod} value={sortMethod}>
+            <option>{""}</option>
             <option>By price</option>
             <option>Nike</option>
             <option>Adidas</option>

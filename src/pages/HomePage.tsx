@@ -1,10 +1,9 @@
-import react, {useContext} from "react";
+import react, { useContext } from "react";
 import { Search } from "../components/Search/Search";
 import { Position } from "../components/Position/Position";
 import { Product } from "../components/interface";
 import style from "./Home.module.scss";
 import { MyContext } from "../App";
-
 
 export function HomePage({
   searchInput,
@@ -12,12 +11,16 @@ export function HomePage({
   setSearchInput,
   addPositionToCart,
   addPositionToFavourite,
+  changeSortMethod,
+  sortMethod,
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
   addPositionToCart: (positionToCart: Product) => void;
   addPositionToFavourite: (positionToFavourite: Product) => void;
+  changeSortMethod: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  sortMethod: string;
 }) {
   const [favouritePositions, spikesData, cartPositions] = useContext(MyContext);
 
@@ -27,6 +30,8 @@ export function HomePage({
         searchInput={searchInput}
         takeValueFromInput={takeValueFromInput}
         setSearchInput={setSearchInput}
+        changeSortMethod={changeSortMethod}
+        sortMethod={sortMethod}
       />
       <div className={style.allPositions}>
         {spikesData
@@ -50,8 +55,12 @@ export function HomePage({
                 addToFavourite={(positionToFavourite: Product) =>
                   addPositionToFavourite(positionToFavourite)
                 }
-                favourited={favouritePositions.some(obj => obj.model === item.model)}
-                addedToCart={cartPositions.some(obj => obj.model === item.model)}
+                favourited={favouritePositions.some(
+                  (obj) => obj.model === item.model
+                )}
+                addedToCart={cartPositions.some(
+                  (obj) => obj.model === item.model
+                )}
               />
             );
           })}

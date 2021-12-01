@@ -10,10 +10,14 @@ import { PositionPage } from "./pages/PositionPage";
 import superagent from "superagent";
 
 const PRODUCT_EMPTY_LIST: Product[] = [];
-const PRODUCT_CONTEXT_INIT = [PRODUCT_EMPTY_LIST, PRODUCT_EMPTY_LIST, PRODUCT_EMPTY_LIST] as const;
+const PRODUCT_CONTEXT_INIT = [
+  PRODUCT_EMPTY_LIST,
+  PRODUCT_EMPTY_LIST,
+  PRODUCT_EMPTY_LIST,
+] as const;
 export const MyContext = createContext(PRODUCT_CONTEXT_INIT);
 
-export const positionRoute = (model: string) => `/${model}`
+export const positionRoute = (model: string) => `/${model}`;
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
@@ -21,7 +25,7 @@ export function App() {
   const [cartPositions, setCartPositions] = useState<Product[]>([]);
   const [favouritePositions, setFavouritePositions] = useState<Product[]>([]);
   const [searchInput, setSearchInput] = useState("");
-
+  const [sortMethod, setSortMethod] = useState("");
   useEffect(() => {
     async function data() {
       const favourResponse = await getRequestFavouritePositions();
@@ -30,9 +34,32 @@ export function App() {
       setFavouritePositions(favourResponse);
       setCartPositions(cartRespone);
       setSpikesData(itemsResponse);
+      if (sortMethod === "") {
+        setSpikesData(itemsResponse);
+      }
+      if (sortMethod === "Adidas") {
+        const newFilteredArr = spikesData.filter(
+          (element) => element.brand === "Adidas"
+        );
+        setSpikesData(newFilteredArr);
+      }
+      if (sortMethod === "Nike") {
+        const newFilteredArr = spikesData.filter(
+          (element) => element.brand === "Nike"
+        );
+        setSpikesData(newFilteredArr);
+      }
+      if (sortMethod === "By price") {
+        const newSortedArr = spikesData.sort(
+          (firstPosition, secondPosition) =>
+            firstPosition.price - secondPosition.price
+        );
+        console.log(newSortedArr);
+        setSpikesData(newSortedArr);
+      }
     }
     data();
-  }, []);
+  }, [sortMethod]);
 
   const addPositionToCart = async (positionToCart: Product) => {
     if (cartPositions.find((obj) => obj.model === positionToCart.model)) {
@@ -93,18 +120,26 @@ export function App() {
     setSearchInput(event.target.value);
   };
 
+  const changeSortMethod = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = String(e.target.value);
+    setSortMethod(value);
+  };
+
   return (
-    <MyContext.Provider value={[favouritePositions,spikesData,cartPositions]}> 
+    <MyContext.Provider value={[favouritePositions, spikesData, cartPositions]}>
       <div className="wrapper">
         {cartOpen ? (
           <ShoppingCart
             closeShopCart={() => setCartOpen(false)}
             positionList={cartPositions}
             deleteFromCart={removePositionFromCart}
-            setCartPositions = {setCartPositions}
+            setCartPositions={setCartPositions}
           />
         ) : null}
-        <Header onClickShopCart={() => setCartOpen(true)} cartPositions={cartPositions} />
+        <Header
+          onClickShopCart={() => setCartOpen(true)}
+          cartPositions={cartPositions}
+        />
         <Route path="/" exact>
           <HomePage
             searchInput={searchInput}
@@ -112,6 +147,8 @@ export function App() {
             setSearchInput={setSearchInput}
             addPositionToCart={addPositionToCart}
             addPositionToFavourite={addPositionToFavourite}
+            changeSortMethod={changeSortMethod}
+            sortMethod={sortMethod}
           />
         </Route>
         <Route path="/favourites">
@@ -120,7 +157,7 @@ export function App() {
             addPositionToFavourite={addPositionToFavourite}
           />
         </Route>
-        <Route path={positionRoute(':model')}>
+        <Route path={positionRoute(":model")}>
           <PositionPage addPositionToCart={addPositionToCart} />
         </Route>
       </div>
