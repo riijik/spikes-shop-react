@@ -34,32 +34,32 @@ export function App() {
       setFavouritePositions(favourResponse);
       setCartPositions(cartRespone);
       setSpikesData(itemsResponse);
-      if (sortMethod === "") {
-        setSpikesData(itemsResponse);
-      }
-      if (sortMethod === "Adidas") {
-        const newFilteredArr = spikesData.filter(
-          (element) => element.brand === "Adidas"
-        );
-        setSpikesData(newFilteredArr);
-      }
-      if (sortMethod === "Nike") {
-        const newFilteredArr = spikesData.filter(
-          (element) => element.brand === "Nike"
-        );
-        setSpikesData(newFilteredArr);
-      }
-      if (sortMethod === "By price") {
-        const newSortedArr = spikesData.sort(
-          (firstPosition, secondPosition) =>
-            firstPosition.price - secondPosition.price
-        );
-        console.log(newSortedArr);
-        setSpikesData(newSortedArr);
-      }
+      // if (sortMethod === "") {
+      //   setSpikesData(itemsResponse);
+      // }
+      // if (sortMethod === "Adidas") {
+      //   const newFilteredArr = spikesData.filter(
+      //     (element) => element.brand === "Adidas"
+      //   );
+      //   setSpikesData(newFilteredArr);
+      // }
+      // if (sortMethod === "Nike") {
+      //   const newFilteredArr = spikesData.filter(
+      //     (element) => element.brand === "Nike"
+      //   );
+      //   setSpikesData(newFilteredArr);
+      // }
+      // if (sortMethod === "By price") {
+      //   const newSortedArr = spikesData.sort(
+      //     (firstPosition, secondPosition) =>
+      //       firstPosition.price - secondPosition.price
+      //   );
+      //   console.log(newSortedArr);
+      //   setSpikesData(newSortedArr);
+      // }
     }
     data();
-  }, [sortMethod]);
+  }, []);
 
   const addPositionToCart = async (positionToCart: Product) => {
     if (cartPositions.find((obj) => obj.model === positionToCart.model)) {

@@ -4,6 +4,7 @@ import style from "./Position.module.scss";
 import { Product } from "../interface";
 import { Link } from "react-router-dom";
 import { positionRoute } from "../../App";
+import anime from "animejs";
 
 export function Position({
   model,
@@ -42,6 +43,15 @@ export function Position({
     setIsFavour(!isFavour);
   };
 
+  anime({
+    targets: "#kartinka",
+    translateX: 1,
+    rotate: "1turn",
+    duration: 8000,
+    loop: true,
+    autoplay: false,
+  });
+
   return (
     <div className={style.position}>
       <img
@@ -58,6 +68,7 @@ export function Position({
       />
       <Link to={positionRoute(model)}>
         <img
+          id="kartinka"
           src={image}
           width={133}
           height={133}

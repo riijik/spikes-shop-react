@@ -1,60 +1,97 @@
 .position {
-    position: relative;
-    border: 1px solid #f3f3f3;
-    padding: 30px;
-    width: 180px;
-    height: 180px;
-    border-radius: 40px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    transition: box-shadow 0.2s ease-in-out, transform 0.5s;
-  
-    span {
-      font-size: 13px;
-      opacity: 0.5;
+  position: relative;
+  border: 1px solid #f3f3f3;
+  padding: 30px;
+  width: 180px;
+  height: 180px;
+  border-radius: 40px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, transform 0.5s;
+
+  span {
+    font-size: 13px;
+    opacity: 0.5;
+  }
+
+  .imgFavourite {
+    position: absolute;
+    top: 15px;
+  }
+
+  b {
+    font-size: 13px;
+  }
+
+  .imageCard {
+    margin-left: 21px;
+    border-radius: 8px;
+  }
+
+  h5 {
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .cardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      background: #ffffff;
+      border: 1px solid #f2f2f2;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 32px;
+      width: 32px;
+      cursor: pointer;
+      outline: none;
     }
-    
+  }
+}
+
+.position:hover {
+  box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.05);
+  transform: translateY(-10px);
+}
+
+@media (max-width: 992px) {
+  .position {
+    width: 130px;
+    height: 130px;
+
     .imgFavourite {
       position: absolute;
       top: 15px;
+      width: 12px;
+      height: 12px;
     }
 
-    b {
-      font-size: 13px;
-    }
-  
     .imageCard {
-      margin-left: 21px;
-      border-radius: 8px;
+      width: 90px;
+      height: 90px;
     }
-  
     h5 {
       font-weight: 400;
-      font-size: 14px;
+      font-size: 10px;
       margin-top: 5px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
-  
+    span {
+      font-size: 9px;
+    }
+    b {
+      font-size: 9px;
+    }
     .cardBottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-  
       button {
-        background: #ffffff;
-        border: 1px solid #f2f2f2;
-        box-sizing: border-box;
-        border-radius: 8px;
-        height: 32px;
-        width: 32px;
-        cursor: pointer;
-        outline: none;
+        height: 27px;
+        width: 27px;
       }
     }
   }
-  
-  .position:hover {
-    box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.05);
-    transform: translateY(-10px);
-  }
+}

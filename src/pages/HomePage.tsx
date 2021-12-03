@@ -4,6 +4,7 @@ import { Position } from "../components/Position/Position";
 import { Product } from "../components/interface";
 import style from "./Home.module.scss";
 import { MyContext } from "../App";
+import anime from "animejs";
 
 export function HomePage({
   searchInput,
@@ -24,8 +25,17 @@ export function HomePage({
 }) {
   const [favouritePositions, spikesData, cartPositions] = useContext(MyContext);
 
+  let blokcMove = anime({
+    targets: "#demo",
+    translateX: 300,
+    duration: 8000,
+    autoplay: false,
+  });
+
   return (
     <div className={style.content}>
+      <div id="demo">YA SOSU BIBU S ANIME </div>
+      <button onClick={() => blokcMove.play()}>Animation </button>
       <Search
         searchInput={searchInput}
         takeValueFromInput={takeValueFromInput}
