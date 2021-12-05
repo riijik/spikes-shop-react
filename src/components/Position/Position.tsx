@@ -36,6 +36,7 @@ export function Position({
   const addProduct = () => {
     addToCart({ id, brand, model, image, image_1, price, size });
     setIsAdded(!isAdded);
+    animation.play();
   };
 
   const addToFavour = () => {
@@ -43,14 +44,15 @@ export function Position({
     setIsFavour(!isFavour);
   };
 
-  anime({
-    targets: "#kartinka",
+  const animation = anime({
+    targets: `${id}`,
     translateX: 1,
-    rotate: "1turn",
+    rotate: 360,
     duration: 8000,
-    loop: true,
     autoplay: false,
   });
+
+  const idd = String(id)
 
   return (
     <div className={style.position}>
@@ -68,7 +70,7 @@ export function Position({
       />
       <Link to={positionRoute(model)}>
         <img
-          id="kartinka"
+          id={idd}
           src={image}
           width={133}
           height={133}
