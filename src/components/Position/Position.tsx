@@ -16,6 +16,7 @@ export function Position({
   brand,
   addToCart,
   addToFavourite,
+  addToAnimation,
   favourited = false,
   addedToCart = false,
 }: {
@@ -28,6 +29,7 @@ export function Position({
   brand: string;
   addToCart: (obj: Product) => void;
   addToFavourite: (positionToFavourite: Product) => void;
+  addToAnimation: (positionToAnime: Product) => void;
   favourited?: boolean;
   addedToCart?: boolean;
 }) {
@@ -36,23 +38,13 @@ export function Position({
   const addProduct = () => {
     addToCart({ id, brand, model, image, image_1, price, size });
     setIsAdded(!isAdded);
-    animation.play();
+    addToAnimation({ id, brand, model, image, image_1, price, size });
   };
 
   const addToFavour = () => {
     addToFavourite({ id, brand, model, image, image_1, price, size });
     setIsFavour(!isFavour);
   };
-
-  const animation = anime({
-    targets: `${id}`,
-    translateX: 1,
-    rotate: 360,
-    duration: 8000,
-    autoplay: false,
-  });
-
-  const idd = String(id)
 
   return (
     <div className={style.position}>
@@ -70,7 +62,7 @@ export function Position({
       />
       <Link to={positionRoute(model)}>
         <img
-          id={idd}
+          id={deleteProbel(model)}
           src={image}
           width={133}
           height={133}
@@ -78,6 +70,7 @@ export function Position({
           alt="position"
         />
       </Link>
+      {/* <button onClick={() => animation.play()}>Anime</button> */}
       <h5>{model}</h5>
       <div className={style.cardBottom}>
         <div>
@@ -99,4 +92,8 @@ export function Position({
       </div>
     </div>
   );
+}
+
+export function deleteProbel(model: string) {
+  return model.replaceAll(' ','')
 }

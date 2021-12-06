@@ -4,7 +4,6 @@ import { Position } from "../components/Position/Position";
 import { Product } from "../components/interface";
 import "./Home.module.scss";
 import style from "./Home.module.scss";
-
 import { MyContext } from "../App";
 import anime from "animejs";
 
@@ -16,6 +15,7 @@ export function HomePage({
   addPositionToFavourite,
   changeSortMethod,
   sortMethod,
+  animashka,
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,23 +24,12 @@ export function HomePage({
   addPositionToFavourite: (positionToFavourite: Product) => void;
   changeSortMethod: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   sortMethod: string;
+  animashka: (positionToAnime: Product) => void;
 }) {
   const [favouritePositions, spikesData, cartPositions] = useContext(MyContext);
 
-  const blokcMove = anime({
-    targets: ".testAnime",
-    translateX: 300,
-    duration: 8000,
-    autoplay: false,
-  });
-
-  
-
   return (
     <div className={style.content}>
-      <div className={style.testAnime}>YA SOSU BIBU S ANIME </div>
-      <div className="testAnime">YA SOSU BIBU S ANIME </div>
-      <button onClick={() => blokcMove.restart()}>Animation </button>
       <Search
         searchInput={searchInput}
         takeValueFromInput={takeValueFromInput}
@@ -69,6 +58,9 @@ export function HomePage({
                 }
                 addToFavourite={(positionToFavourite: Product) =>
                   addPositionToFavourite(positionToFavourite)
+                }
+                addToAnimation={(positionToAnime: Product) =>
+                  animashka(positionToAnime)
                 }
                 favourited={favouritePositions.some(
                   (obj) => obj.model === item.model

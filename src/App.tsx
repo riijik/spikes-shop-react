@@ -8,6 +8,8 @@ import { Route } from "react-router";
 import { FavouritePage } from "./pages/FavouritePage";
 import { PositionPage } from "./pages/PositionPage";
 import superagent from "superagent";
+import anime from "animejs";
+import { deleteProbel } from "./components/Position/Position";
 
 const PRODUCT_EMPTY_LIST: Product[] = [];
 const PRODUCT_CONTEXT_INIT = [
@@ -125,6 +127,17 @@ export function App() {
     setSortMethod(value);
   };
 
+  const animashka = (positionToAnime: Product) => {
+    const animation = anime({
+      targets: `#${deleteProbel(positionToAnime.model)}`,
+      translateX: 1,
+      rotate: 360,
+      duration: 5000,
+      autoplay: false,
+    });
+    animation.play()
+  }
+
   return (
     <MyContext.Provider value={[favouritePositions, spikesData, cartPositions]}>
       <div className="wrapper">
@@ -149,12 +162,14 @@ export function App() {
             addPositionToFavourite={addPositionToFavourite}
             changeSortMethod={changeSortMethod}
             sortMethod={sortMethod}
+            animashka={animashka}
           />
         </Route>
         <Route path="/favourites">
           <FavouritePage
             addPositionToCart={addPositionToCart}
             addPositionToFavourite={addPositionToFavourite}
+            animashka={animashka}
           />
         </Route>
         <Route path={positionRoute(":model")}>
