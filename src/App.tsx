@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, MouseEventHandler } from "react";
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header/Header";
 import { ShoppingCart } from "./components/ShopCart/ShopCart";
@@ -10,6 +10,7 @@ import { PositionPage } from "./pages/PositionPage";
 import superagent from "superagent";
 import anime from "animejs";
 import { deleteProbel } from "./components/Position/Position";
+import  style from "./components/Header/Header.module.scss"
 
 const PRODUCT_EMPTY_LIST: Product[] = [];
 const PRODUCT_CONTEXT_INIT = [
@@ -126,17 +127,30 @@ export function App() {
     const value = String(e.target.value);
     setSortMethod(value);
   };
+  
 
   const animashka = (positionToAnime: Product) => {
+    const el = document.querySelector(`.${style.liUser}`)
+    const cordination = el!.getBoundingClientRect()
+    const elem = document.querySelector(`#${deleteProbel(positionToAnime.model)}`)
+    const cordinationSec = elem!.getBoundingClientRect()
+    
+    const cordiPoY = cordination.y - cordinationSec.y - 50
+    const cordiPoX = cordination.x - cordinationSec.x - 50
+  
+
+
     const animation = anime({
       targets: `#${deleteProbel(positionToAnime.model)}`,
-      translateX: 1,
-      rotate: 360,
-      duration: 5000,
+      keyframes: [
+        { translateY: cordiPoY, translateX: cordiPoX, rotate: 360, scale: 0.0 },
+        { translateX: 0, translateY: 0, rotate: 0, scale: 1.0 },
+      ],
+      duration: 2000,
       autoplay: false,
     });
-    animation.play()
-  }
+    animation.play();
+  };
 
   return (
     <MyContext.Provider value={[favouritePositions, spikesData, cartPositions]}>

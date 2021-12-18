@@ -4,7 +4,6 @@ import style from "./Position.module.scss";
 import { Product } from "../interface";
 import { Link } from "react-router-dom";
 import { positionRoute } from "../../App";
-import anime from "animejs";
 
 export function Position({
   model,
@@ -60,17 +59,26 @@ export function Position({
         alt="like"
         onClick={addToFavour}
       />
-      <Link to={positionRoute(model)}>
-        <img
-          id={deleteProbel(model)}
-          src={image}
-          width={133}
-          height={133}
-          className={style.imageCard}
-          alt="position"
-        />
-      </Link>
-      {/* <button onClick={() => animation.play()}>Anime</button> */}
+      <div className={style.govno}>
+        <Link to={positionRoute(model)}>
+          <img
+            id={deleteProbel(model)}
+            src={image}
+            width={133}
+            height={133}
+            className={style.imageCard}
+            alt="position"
+          />
+          <img
+            id={deleteProbel(model) + 1}
+            src={image}
+            width={133}
+            height={133}
+            className={style.imageCard}
+            alt="position"
+          />
+        </Link>
+      </div>
       <h5>{model}</h5>
       <div className={style.cardBottom}>
         <div>
@@ -95,5 +103,5 @@ export function Position({
 }
 
 export function deleteProbel(model: string) {
-  return model.replaceAll(' ','')
+  return model.replaceAll(" ", "");
 }
