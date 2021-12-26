@@ -59,7 +59,7 @@ export function Position({
         alt="like"
         onClick={addToFavour}
       />
-      <div className={style.govno}>
+      <div className={style.stackImg}>
         <Link to={positionRoute(model)}>
           <img
             id={deleteProbel(model)}
@@ -79,24 +79,26 @@ export function Position({
           />
         </Link>
       </div>
-      <h5>{model}</h5>
-      <div className={style.cardBottom}>
-        <div>
-          <span>Price: </span>
-          <b>{price} $</b>
+      <div className={style.cardBott}>
+        <h5>{model}</h5>
+        <div className={style.cardBottom}>
+          <div>
+            <span>Price: </span>
+            <b>{price} $</b>
+          </div>
+          <button onClick={addProduct}>
+            <img
+              src={
+                isAdded
+                  ? "/image/Symbols/checked.png"
+                  : "/image/Symbols/plus-sign.svg"
+              }
+              width={11}
+              height={11}
+              alt="plus"
+            />
+          </button>
         </div>
-        <button onClick={addProduct}>
-          <img
-            src={
-              isAdded
-                ? "/image/Symbols/checked.png"
-                : "/image/Symbols/plus-sign.svg"
-            }
-            width={11}
-            height={11}
-            alt="plus"
-          />
-        </button>
       </div>
     </div>
   );

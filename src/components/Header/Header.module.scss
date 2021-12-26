@@ -1,59 +1,59 @@
 .spikeLogo {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background: blue;
-    margin-right: 15px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: blue;
+  margin-right: 15px;
+  margin-left: 5px;
+  cursor: pointer;
+}
 
-  header {
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #ffffff;
+  border-radius: 20px;
+  position: sticky;
+  top: 5px;
+  z-index: 4;
+
+  .headerLeft {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 40px;
-    border-bottom: 1px solid #eaeaea;
-    background-color: #ffffff;
-    border-radius: 20px;
-    position: sticky;
-    top: 0;
-    // z-index: 4;
-  
-    .headerLeft {
-      display: flex;
-      align-items: center;
-  
-      h3,
-      p {
-        margin: 0px;
-      }
-    }
-  
-    .headerRight {
+
+    h3,
+    p {
       margin: 0px;
-      padding: 0px;
-      display: flex;
-
-      img {
-        cursor: pointer;
-      }
-  
-      span {
-        margin-left: 5px;
-      }
-  
-      li {
-        list-style-type: none;
-        margin-right: 30px;
-      }
-  
-      .liUser {
-        margin-top: 1px;
-      }
-
-      .liFavourite {
-        margin-top: 2px;
-      }
     }
   }
+
+  .headerRight {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+
+    img {
+      cursor: pointer;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+
+    li {
+      list-style-type: none;
+      margin-right: 30px;
+    }
+
+    .liUser {
+      margin-top: 1px;
+    }
+
+    .liFavourite {
+      margin-top: 2px;
+    }
+  }
+}

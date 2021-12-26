@@ -24,9 +24,10 @@
     font-size: 13px;
   }
 
-  .govno {
+  .stackImg {
     position: relative;
   }
+
   .imageCard {
     position: absolute;
     margin-left: 21px;
@@ -38,6 +39,11 @@
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: 10px;
+  }
+
+  .cardBott {
+    position: inherit;
+    bottom: -140px;
   }
 
   .cardBottom {
@@ -90,6 +96,9 @@
     }
     b {
       font-size: 9px;
+    }
+    .cardBott {
+      bottom: -100px;
     }
     .cardBottom {
       button {
