@@ -24,6 +24,7 @@ export const positionRoute = (model: string) => `/${model}`;
 
 export function App() {
   const [spikesData, setSpikesData] = useState<Product[]>([]);
+  const [notChangebleData, setNotChangebleData] = useState<Product[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartPositions, setCartPositions] = useState<Product[]>([]);
   const [favouritePositions, setFavouritePositions] = useState<Product[]>([]);
@@ -37,29 +38,7 @@ export function App() {
       setFavouritePositions(favourResponse);
       setCartPositions(cartRespone);
       setSpikesData(itemsResponse);
-      // if (sortMethod === "") {
-      //   setSpikesData(itemsResponse);
-      // }
-      // if (sortMethod === "Adidas") {
-      //   const newFilteredArr = spikesData.filter(
-      //     (element) => element.brand === "Adidas"
-      //   );
-      //   setSpikesData(newFilteredArr);
-      // }
-      // if (sortMethod === "Nike") {
-      //   const newFilteredArr = spikesData.filter(
-      //     (element) => element.brand === "Nike"
-      //   );
-      //   setSpikesData(newFilteredArr);
-      // }
-      // if (sortMethod === "By price") {
-      //   const newSortedArr = spikesData.sort(
-      //     (firstPosition, secondPosition) =>
-      //       firstPosition.price - secondPosition.price
-      //   );
-      //   console.log(newSortedArr);
-      //   setSpikesData(newSortedArr);
-      // }
+      setNotChangebleData(itemsResponse);
     }
     data();
   }, []);
@@ -125,28 +104,50 @@ export function App() {
 
   const changeSortMethod = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = String(e.target.value);
+    console.log(value);
+    if (value === "By price") {
+      const dataCopy = spikesData.slice();
+      const data = dataCopy.sort((a, b) => b.price - a.price);
+      setSpikesData(data);
+    }
+    if (value === "Nike") {
+      const filterArr = notChangebleData.filter(
+        (item) => item.brand === "Nike"
+      );
+      setSpikesData(filterArr);
+    }
+    if (value === "Adidas") {
+      const filterArr = notChangebleData.filter(
+        (item) => item.brand === "Adidas"
+      );
+      setSpikesData(filterArr);
+    }
+    if (value === "All") {
+      setSpikesData(notChangebleData  );
+    }
     setSortMethod(value);
   };
 
-  const animashka = (positionToAnime: Product) => {
-    const el = document.querySelector(`.${style.liUser}`);
-    const cordination = el!.getBoundingClientRect();
-    const elem = document.querySelector(
+  const flyToCartAnimation = (positionToAnime: Product) => {
+    const elementTowardMove = document.querySelector(`.${style.headerRight}`);
+    const cordinationFirst = elementTowardMove!.getBoundingClientRect();
+
+    const elementForMove = document.querySelector(
       `#${deleteProbel(positionToAnime.model)}`
     );
-    const cordinationSec = elem!.getBoundingClientRect();
+    const cordinationSec = elementForMove!.getBoundingClientRect();
 
-    const cordiPoY = cordination.y - cordinationSec.y - 30;
-    const cordiPoX = cordination.x - cordinationSec.x - 50;
+    const cordinationOnY = cordinationFirst.y - cordinationSec.y - 30;
+    const cordinationOnX = cordinationFirst.x - cordinationSec.x - 50;
 
     const animation = anime({
       targets: `#${deleteProbel(positionToAnime.model)}`,
       keyframes: [
         {
-          translateY: cordiPoY,
-          translateX: cordiPoX,
+          translateY: cordinationOnY,
+          translateX: cordinationOnX,
           rotate: 360,
-          scale: 0.2,
+          scale: 0.1,
         },
         { translateX: 5, translateY: 5, rotate: 0, scale: 0, opacity: 0 },
         { translateX: 0, translateY: 0, rotate: 0, scale: 1.0, opacity: 1 },
@@ -182,14 +183,14 @@ export function App() {
             addPositionToFavourite={addPositionToFavourite}
             changeSortMethod={changeSortMethod}
             sortMethod={sortMethod}
-            animashka={animashka}
+            flyToCartAnimation={flyToCartAnimation}
           />
         </Route>
         <Route path="/favourites">
           <FavouritePage
             addPositionToCart={addPositionToCart}
             addPositionToFavourite={addPositionToFavourite}
-            animashka={animashka}
+            flyToCartAnimation={flyToCartAnimation}
           />
         </Route>
         <Route path={positionRoute(":model")}>

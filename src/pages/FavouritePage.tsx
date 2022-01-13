@@ -7,11 +7,11 @@ import { MyContext } from "../App";
 export function FavouritePage({
   addPositionToCart,
   addPositionToFavourite,
-  animashka,
+  flyToCartAnimation,
 }: {
   addPositionToCart: (positionToCart: Product) => void;
   addPositionToFavourite: (positionToFavourite: Product) => void;
-  animashka: (positionToAnime: Product) => void;
+  flyToCartAnimation: (positionToAnime: Product) => void;
 }) {
   const [favouritePositions, spikesData, cartPositions] = useContext(MyContext);
 
@@ -37,7 +37,7 @@ export function FavouritePage({
                 addPositionToFavourite(positionToFavourite)
               }
               addToAnimation={(positionToAnime: Product) =>
-                animashka(positionToAnime)
+                flyToCartAnimation(positionToAnime)
               }
               favourited={true}
             />

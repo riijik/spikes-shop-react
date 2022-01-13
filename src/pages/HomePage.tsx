@@ -15,7 +15,7 @@ export function HomePage({
   addPositionToFavourite,
   changeSortMethod,
   sortMethod,
-  animashka,
+  flyToCartAnimation,
 }: {
   searchInput: string;
   takeValueFromInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,7 +24,7 @@ export function HomePage({
   addPositionToFavourite: (positionToFavourite: Product) => void;
   changeSortMethod: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   sortMethod: string;
-  animashka: (positionToAnime: Product) => void;
+  flyToCartAnimation: (positionToAnime: Product) => void;
 }) {
   const [favouritePositions, spikesData, cartPositions] = useContext(MyContext);
 
@@ -60,7 +60,7 @@ export function HomePage({
                   addPositionToFavourite(positionToFavourite)
                 }
                 addToAnimation={(positionToAnime: Product) =>
-                  animashka(positionToAnime)
+                  flyToCartAnimation(positionToAnime)
                 }
                 favourited={favouritePositions.some(
                   (obj) => obj.model === item.model

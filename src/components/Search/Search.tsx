@@ -51,7 +51,7 @@ export function Search({
             alt="filter"
           />
           <select onChange={changeSortMethod} value={sortMethod}>
-            <option>{""}</option>
+            <option>All</option>
             <option>By price</option>
             <option>Nike</option>
             <option>Adidas</option>
